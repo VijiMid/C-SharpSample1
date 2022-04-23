@@ -1,0 +1,955 @@
+1. program in C Sharp to create a singly linked list of n nodes and display it in reverse order.
+
+using System;
+namespace CSharp_PracticeExe
+{
+    class DSprg1
+    {
+        public class LinkedList
+        {
+            Node head;
+            public class Node
+            {
+                public int data;
+                public Node next;
+
+                public Node(int d)
+                {
+                    data = d;
+                    next = null;
+                }
+            }
+            public void AddNode(Node node)
+            {
+                if (head == null)
+                    head = node;
+                else
+                {
+                    Node temp = head;
+                    while (temp.next != null)
+                    {
+                        temp = temp.next;
+                    }
+                    temp.next = node;
+                }
+            }
+            public void ReverseList()
+            {
+                Node prev = null, current = head, next = null;
+                while (current != null)
+                {
+                    next = current.next;
+                    current.next = prev;
+                    prev = current;
+                    current = next;
+                }
+                head = prev;
+            }
+            public void PrintList()
+            {
+                Node current = head;
+                while (current != null)
+                {
+                    Console.Write(current.data + " ");
+                    current = current.next;
+                }
+                Console.WriteLine();
+            }
+        }
+        public static void Main(string[] args)
+        {
+            LinkedList ls = new LinkedList();
+            ls.AddNode(new LinkedList.Node(20));
+            ls.AddNode(new LinkedList.Node(10));
+            ls.AddNode(new LinkedList.Node(30));
+            ls.AddNode(new LinkedList.Node(50));
+
+            // List before reversal
+            Console.WriteLine("Given linked list:");
+            ls.PrintList();
+
+            // Reverse the list
+            ls.ReverseList();
+
+            // List after reversal
+            Console.WriteLine("Reversed linked list:");
+            ls.PrintList();
+        } 
+    }
+}
+
+----------------------------------------------------------------------------------------------------------------------------
+
+2. program in C Sharp to create a singly linked list of n nodes and count the number of nodes.
+
+using System;
+
+namespace CSharp_PracticeExe
+{
+    public class CountNodes
+    {
+        //Represent a node of singly linked list
+        public class Node<T>
+        {
+            public T data;
+            public Node<T> next;
+
+            public Node(T value)
+            {
+                data = value;
+                next = null;
+            }
+        }
+        public class SinglyLinkedList<T>
+        {
+            //Represent the head and tail of the singly linked list
+            public Node<T> head = null;
+            public Node<T> tail = null;
+
+            //addNode() will add a new node to the list
+            public void addNode(T data)
+            {
+                //Create a new node
+                Node<T> newNode = new Node<T>(data);
+
+                //Checks if the list is empty
+                if (head == null)
+                {
+                    //If list is empty, both head and tail will point to new node
+                    head = newNode;
+                    tail = newNode;
+                }
+                else
+                {
+                    //newNode will be added after tail such that tail's next will point to newNode
+                    tail.next = newNode;
+                    //newNode will become new tail of the list
+                    tail = newNode;
+                }
+            }
+            //countNodes() will count the nodes present in the list
+            public int countNodes()
+            {
+                int count = 0;
+                //Node current will point to head
+                Node<T> current = head;
+
+                while (current != null)
+                {
+                    //Increment the count by 1 for each node
+                    count++;
+                    current = current.next;
+                }
+                return count;
+            }
+
+            //display() will display all the nodes present in the list
+            public void display()
+            {
+                //Node current will point to head
+                Node<T> current = head;
+
+                if (head == null)
+                {
+                    Console.WriteLine("List is empty");
+                    return;
+                }
+                Console.WriteLine("Nodes of singly linked list: ");
+                while (current != null)
+                {
+                    //Prints each node by incrementing pointer
+                    Console.Write(current.data + " ");
+                    current = current.next;
+                }
+                Console.WriteLine();
+            }
+        }
+        public class DSprg2
+        {
+            public static void Main(string[] args)
+            {
+                SinglyLinkedList<int> sList = new SinglyLinkedList<int>();
+
+                //Add nodes to the list
+                sList.addNode(1);
+                sList.addNode(2);
+                sList.addNode(3);
+                sList.addNode(4);
+
+                //Displays the nodes present in the list
+                sList.display();
+
+                //Counts the nodes present in the given list
+                Console.WriteLine("Count of nodes present in the list: " + sList.countNodes());
+            }
+        }
+    }
+}
+
+----------------------------------------------------------------------------------------------------------------------------
+
+3. program in C Sharp to insert a new node at the beginning of a Singly Linked List.
+
+using System;
+
+namespace CSharp_PracticeExe
+{
+    public class Node
+    {
+        public int data;
+        public Node next;
+    };
+
+    public class LinkedList
+    {
+        Node head;
+        public LinkedList()
+        {
+            head = null;
+        }
+
+        //Add new element at the start of the list
+        public void AddElement(int newElement)
+        {
+            Node newNode = new Node();
+            newNode.data = newElement;
+            newNode.next = head;
+            head = newNode;
+        }
+
+        //display the content of the list
+        public void PrintList()
+        {
+            Node temp = new Node();
+            temp = this.head;
+            if (temp != null)
+            {
+                Console.Write("The list contains: ");
+                while (temp != null)
+                {
+                    Console.Write(temp.data + " ");
+                    temp = temp.next;
+                }
+                Console.WriteLine();
+            }
+            else
+            {
+                Console.WriteLine("The list is empty.");
+            }
+        }
+    }
+
+    public class DSprg3
+    {
+        static void Main(string[] args)
+        {
+            LinkedList ls = new LinkedList();
+
+            //Add three elements at the start of the list.
+            ls.AddElement(10);
+            ls.AddElement(20);
+            ls.AddElement(30);
+            ls.PrintList();
+        }
+    }
+}
+
+----------------------------------------------------------------------------------------------------------------------------
+
+4. program in C Sharp to insert a new node at the end of a Singly Linked List.
+
+using System;
+
+namespace CSharp_PracticeExe
+{
+    //node structure
+    class Node
+    {
+        public int data;
+        public Node next;
+    };
+
+    class LinkedList
+    {
+        Node head;
+
+        public LinkedList()
+        {
+            head = null;
+        }
+
+        //Add new element at the end of the list
+        public void AddElement(int newElement)
+        {
+            Node newNode = new Node();
+            newNode.data = newElement;
+            newNode.next = null;
+            if (head == null)
+            {
+                head = newNode;
+            }
+            else
+            {
+                Node temp = new Node();
+                temp = head;
+                while (temp.next != null)
+                    temp = temp.next;
+                temp.next = newNode;
+            }
+        }
+
+        //display the content of the list
+        public void PrintList()
+        {
+            Node temp = new Node();
+            temp = this.head;
+            if (temp != null)
+            {
+                Console.Write("The list contains: ");
+                while (temp != null)
+                {
+                    Console.Write(temp.data + " ");
+                    temp = temp.next;
+                }
+                Console.WriteLine();
+            }
+            else
+            {
+                Console.WriteLine("The list is empty.");
+            }
+        }
+    }
+    internal class DSprg4
+    {
+        static void Main(string[] args)
+        {
+            LinkedList ls = new LinkedList();
+
+            //Add three elements at the end of the list.
+            ls.AddElement(10);
+            ls.AddElement(20);
+            ls.AddElement(30);
+            ls.PrintList();
+        }
+    }
+}
+
+----------------------------------------------------------------------------------------------------------------------------
+
+5.program in C Sharp to insert a new node at the middle of Singly Linked List.
+
+using System;
+
+namespace CSharp_PracticeExe
+{
+    public class LinkedList
+    {
+        static Node head; // head of list
+
+        public class Node
+        {
+            public int data;
+            public Node next;
+
+            // Constructor to create a new node
+            public Node(int d)
+            {
+                data = d;
+                next = null;
+            }
+        }
+
+        // function to insert node at the
+        // middle of the linked list
+        static void insertAtMid(int x)
+        {
+            // if list is empty
+            if (head == null)
+                head = new Node(x);
+            else
+            {
+                // get a new node
+                Node newNode = new Node(x);
+
+                Node ptr = head;
+                int len = 0;
+
+                // calculate length of the linked list
+                //, i.e, the number of nodes
+                while (ptr != null)
+                {
+                    len++;
+                    ptr = ptr.next;
+                }
+
+                // 'count' the number of nodes after which
+                // the new node is to be inserted
+                int count = ((len % 2) == 0) ? (len / 2) : (len + 1) / 2;
+                ptr = head;
+
+                // 'ptr' points to the node after which
+                // the new node is to be inserted
+                while (count-- > 1)
+                    ptr = ptr.next;
+
+                // insert the 'newNode' and adjust
+                // the required links
+                newNode.next = ptr.next;
+                ptr.next = newNode;
+            }
+        }
+
+        // function to display the linked list
+        static void display()
+        {
+            Node temp = head;
+            while (temp != null)
+            {
+                Console.Write(temp.data + " ");
+                temp = temp.next;
+            }
+        }
+        internal class DSprg5
+        {
+            public static void Main()
+            {
+                // Creating the list 1.2.4.5
+                head = null;
+                head = new Node(1);
+                head.next = new Node(2);
+                head.next.next = new Node(4);
+                head.next.next.next = new Node(5);
+
+                Console.WriteLine("Linked list before " + "insertion: ");
+                display();
+
+                int x = 3;
+                insertAtMid(x);
+
+                Console.WriteLine("\nLinked list after" + " insertion: ");
+                display();
+            }
+        }
+    }
+}
+
+----------------------------------------------------------------------------------------------------------------------------
+
+6. program in C Sharp to delete first node of Singly Linked List.
+
+using System;
+
+namespace CSharp_PracticeExe
+{
+    class Node
+    {
+        public int data;
+        public Node next;
+    }
+
+    class LinkedList
+    {
+        Node head;
+
+        public LinkedList()
+        {
+            head = null;
+        }
+
+        //Add new element at the end of the list
+        public void push_back(int newElement)
+        {
+            Node newNode = new Node();
+            newNode.data = newElement;
+            newNode.next = null;
+            if (head == null)
+            {
+                head = newNode;
+            }
+            else
+            {
+                Node temp = new Node();
+                temp = head;
+                while (temp.next != null)
+                    temp = temp.next;
+                temp.next = newNode;
+            }
+        }
+
+        //Delete first node of the list
+        public void pop_front()
+        {
+            if (this.head != null)
+            {
+                Node temp = this.head;
+                this.head = this.head.next;
+                temp = null;
+            }
+        }
+
+        //display the content of the list
+        public void PrintList()
+        {
+            Node temp = new Node();
+            temp = this.head;
+            if (temp != null)
+            {
+                Console.Write("The list contains: ");
+                while (temp != null)
+                {
+                    Console.Write(temp.data + " ");
+                    temp = temp.next;
+                }
+                Console.WriteLine();
+            }
+            else
+            {
+                Console.WriteLine("The list is empty.");
+            }
+        }
+    }
+    internal class DSprg6
+    {
+        static void Main(string[] args)
+        {
+            LinkedList ls = new LinkedList();
+
+            //Add four elements in the list.
+            ls.push_back(10);
+            ls.push_back(20);
+            ls.push_back(30);
+            ls.push_back(40);
+            ls.PrintList();
+
+            //Delete the first node
+            ls.pop_front();
+            ls.PrintList();
+        }
+    }
+}
+
+----------------------------------------------------------------------------------------------------------------------------
+
+7. program in C Sharp to delete a node from the middle of Singly Linked List.
+
+using System;
+
+namespace CSharp_PracticeExe
+{
+    class LinkedListDelete
+    {
+        class Node
+        {
+            public int data;
+            public Node next;
+        }
+
+        // Deletes middle node and returns
+        // head of the modified list
+        static Node deleteMid(Node head)
+        {
+            // Base cases
+            if (head == null)
+                return null;
+            if (head.next == null)
+            {
+                return null;
+            }
+
+            // Initialize slow and fast
+            // to reach middle of linked list
+            Node slow = head;
+            Node fast = head;
+
+            // Find the middle and previous of middle.
+            Node prev = null;
+
+            // To store previous of slow
+            while (fast != null && fast.next != null)
+            {
+                fast = fast.next.next;
+                prev = slow;
+                slow = slow.next;
+            }
+
+            // Delete the middle node
+            prev.next = slow.next;
+
+            return head;
+        }
+
+        // A function to print
+        // a given linked list
+        static void printList(Node ptr)
+        {
+            while (ptr != null)
+            {
+                Console.Write(ptr.data + " ");
+                ptr = ptr.next;
+            }
+        }
+
+        // function to create a new node.
+        static Node newNode(int data)
+        {
+            Node temp = new Node();
+            temp.data = data;
+            temp.next = null;
+            return temp;
+        }
+        internal class DSprg7
+        {
+            public static void Main(String[] args)
+            {
+                /* Start with the empty list */
+                Node head = newNode(1);
+                head.next = newNode(2);
+                head.next.next = newNode(3);
+                head.next.next.next = newNode(4);
+
+                Console.WriteLine("Given Linked List");
+                printList(head);
+
+                head = deleteMid(head);
+
+                Console.WriteLine("\n" + "Linked List after" + " deletion of middle");
+                printList(head);
+            }
+        }
+    }
+}
+
+----------------------------------------------------------------------------------------------------------------------------
+
+8. program in C Sharp to delete the last node of Singly Linked List.
+
+using System;
+
+namespace CSharp_PracticeExe
+{
+    class Node
+    {
+        public int data;
+        public Node next;
+    };
+
+    class LinkedList
+    {
+        Node head;
+
+        public LinkedList()
+        {
+            head = null;
+        }
+
+        //Add new element at the end of the list
+        public void push_back(int newElement)
+        {
+            Node newNode = new Node();
+            newNode.data = newElement;
+            newNode.next = null;
+            if (head == null)
+            {
+                //for first element in the list
+                head = newNode;
+            }
+            else
+            {
+                Node temp = new Node();
+                temp = head;
+                while (temp.next != null)
+                    temp = temp.next;
+                temp.next = newNode;
+            }
+        }
+
+        //Delete last node of the list
+        public void pop_back()
+        {
+            if (this.head != null)
+            {
+                if (this.head.next == null)
+                {
+                    this.head = null;
+                }
+                else
+                {
+                    Node temp = new Node();
+                    temp = this.head;
+                    while (temp.next.next != null)
+                        temp = temp.next;
+                    Node lastNode = temp.next;
+                    temp.next = null;
+                    lastNode = null;
+                }
+            }
+        }
+
+        //display the content of the list
+        public void PrintList()
+        {
+            Node temp = new Node();
+            temp = this.head;
+            if (temp != null)
+            {
+                Console.Write("The list contains: ");
+                while (temp != null)
+                {
+                    Console.Write(temp.data + " ");
+                    temp = temp.next;
+                }
+                Console.WriteLine();
+            }
+            else
+            {
+                Console.WriteLine("The list is empty.");
+            }
+        }
+    };
+    internal class DSprg8
+    {
+        static void Main(string[] args)
+        {
+            LinkedList ls = new LinkedList();
+
+            //Add four elements in the list.
+            ls.push_back(10);
+            ls.push_back(20);
+            ls.push_back(30);
+            ls.push_back(40);
+            ls.PrintList();
+
+            //Delete the last node
+            ls.pop_back();
+            ls.PrintList();
+        }
+    }
+}
+
+----------------------------------------------------------------------------------------------------------------------------
+
+9. program in C Sharp to search an existing element in a singly linked list.
+
+using System;
+
+namespace CSharp_PracticeExe
+{
+    class Node
+    {
+        public int data;
+        public Node next;
+    }
+    class LinkedList
+    {
+        Node head;
+
+        public LinkedList()
+        {
+            head = null;
+        }
+
+        //Add new element at the end of the list
+        public void push_back(int newElement)
+        {
+            Node newNode = new Node();
+            newNode.data = newElement;
+            newNode.next = null;
+            if (head == null)
+            {
+                head = newNode;
+            }
+            else
+            {
+                Node temp = new Node();
+                temp = head;
+                while (temp.next != null)
+                    temp = temp.next;
+                temp.next = newNode;
+            }
+        }
+
+        //Search an element in the list
+        public void SearchElement(int searchValue)
+        {
+            Node temp = new Node();
+            temp = this.head;
+            int found = 0;
+            int i = 0;
+
+            if (temp != null)
+            {
+                while (temp != null)
+                {
+                    i++;
+                    if (temp.data == searchValue)
+                    {
+                        found++;
+                        break;
+                    }
+                    temp = temp.next;
+                }
+                if (found == 1)
+                {
+                    Console.WriteLine(searchValue + " is found at index = " + i + ".");
+                }
+                else
+                {
+                    Console.WriteLine(searchValue + " is not found in the list.");
+                }
+            }
+            else
+            {
+                Console.WriteLine("The list is empty.");
+            }
+        }
+
+        //display the content of the list
+        public void PrintList()
+        {
+            Node temp = new Node();
+            temp = this.head;
+            if (temp != null)
+            {
+                Console.Write("The list contains: ");
+                while (temp != null)
+                {
+                    Console.Write(temp.data + " ");
+                    temp = temp.next;
+                }
+                Console.WriteLine();
+            }
+            else
+            {
+                Console.WriteLine("The list is empty.");
+            }
+        }
+    }
+    internal class DSprg9
+    {
+        static void Main(string[] args)
+        {
+            LinkedList ls = new LinkedList();
+
+            //Add three elements at the end of the list.
+            ls.push_back(10);
+            ls.push_back(20);
+            ls.push_back(30);
+
+            //traverse to display the content of the list.
+            ls.PrintList();
+
+            //search for element in the list
+            ls.SearchElement(10);
+            ls.SearchElement(15);
+            ls.SearchElement(20);
+        }
+    }
+}
+
+----------------------------------------------------------------------------------------------------------------------------
+
+10. C Sharp program to find the position of a target value within a sorted array using Binary search.
+
+using System;
+
+namespace CSharp_PracticeExe
+{
+    internal class DSprg10
+    {
+        public static void Main(string[] args)
+        {
+            int[] arr = new int[100];
+            int i, n, x, high, low, mid = 0, flag = 0;
+            Console.Write("Input no. of elements in  an array : ");
+            n = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Input {0} value in ascending order", n);
+            for (i = 0; i < n; i++)
+                arr[i] = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Input  the value to be search : ");
+            x = Convert.ToInt32(Console.ReadLine());
+            // Binary Search  logic 
+            high = 0; low = n - 1;
+            while (high <= low)
+            {
+                mid = (high + low) / 2;
+                if (x == arr[mid])
+                {
+                    flag = 1;
+                    break;
+                }
+                else if (x < arr[mid])
+                    low = mid - 1;
+                else
+                    high = mid + 1;
+            }
+            if (flag == 0)
+                Console.WriteLine("{0}  value not found", x);
+            else
+                Console.WriteLine("{0} value  found at {1} position", x, mid);
+        }
+    }
+}
+
+----------------------------------------------------------------------------------------------------------------------------
+
+11. C Sharp program to find the position of a target value within a array using Interpolation search.
+
+using System;
+
+namespace CSharp_PracticeExe
+{
+    internal class DSprg11
+    {
+        // If x is present in
+        // arr[0..n-1], then
+        // returns index of it,
+        // else returns -1.
+        static int interpolationSearch(int[] arr, int lo, int hi, int x)
+        {
+            int pos;
+            // Since array is sorted, an element
+            // present in array must be in range
+            // defined by corner
+            if (lo <= hi && x >= arr[lo] && x <= arr[hi])
+            {
+                // Probing the position
+                // with keeping uniform
+                // distribution in mind.
+                pos = lo + (((hi - lo) / (arr[hi] - arr[lo])) * (x - arr[lo]));
+
+                // Condition of
+                // target found
+                if (arr[pos] == x)
+                    return pos;
+
+                // If x is larger, x is in right sub array
+                if (arr[pos] < x)
+                    return interpolationSearch(arr, pos + 1, hi, x);
+
+                // If x is smaller, x is in left sub array
+                if (arr[pos] > x)
+                    return interpolationSearch(arr, lo, pos - 1, x);
+            }
+            return -1;
+        }
+
+        public static void Main()
+        {
+
+            // Array of items on which search will
+            // be conducted.
+            int[] arr = new int[]{ 10, 12, 13, 16, 18, 19, 20, 21, 22, 23, 24, 33, 35, 42, 47 };
+
+            // Element to be searched                      
+            int x = 18;
+            int n = arr.Length;
+            int index = interpolationSearch(arr, 0, n - 1, x);
+
+            // If element was found
+            if (index != -1)
+                Console.WriteLine("Element found at index " + index);
+            else
+                Console.WriteLine("Element not found.");
+        }
+    }
+}
