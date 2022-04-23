@@ -1,0 +1,472 @@
+1. To Check Valid Mobile Number Or Not
+prgrm:
+using System;
+using System.Text.RegularExpressions;
+
+public static class PhoneNumber
+{
+  // Regular expression used to validate a phone number.
+  public const string motif = @"^([\+]?33[-]?|[0])?[1-9][0-9]{8}$";
+
+  public static bool IsPhoneNbr(string number)
+  {
+    if (number != null) return Regex.IsMatch(number, motif);
+    else return false;
+  }
+}
+
+public class Program {
+  public static void Main(string[] args) {
+    Console.WriteLine(PhoneNumber.IsPhoneNbr("+33298765432"));
+  }
+}
+
+You will get this output:
+True
+----------------------------------------------------------------
+2. To Reverse A String
+prgrm:
+using System;
+class Demo {
+   static void Main() {
+      string myStr, rev;
+      myStr = "Tom";
+      rev ="";
+      Console.WriteLine("String is {0}", myStr);
+      // find string length
+      int len;
+      len = myStr.Length - 1;
+      while (len >= 0) {
+         rev = rev + myStr[len];
+         len--;
+      }
+      Console.WriteLine("Reversed String is {0}", rev);
+      Console.ReadLine();
+   }
+}
+output:
+mystring tom
+reverse string mot
+------------------------------------------------------------------------------------
+3. To Find Common Elements Between Two Arrays
+using System;  
+using System.Linq;  
+  
+public class Program  
+{  
+    public static void Main()  
+    {  
+      
+        int[] array1 ={1, 4, 2, 8, 7};  
+        int[] array2 ={7, 5, 9, 1, 0, 2, 6};  
+        // Call Intersect extension method.  
+        var intersect = array1.Intersect(array2);  
+          
+        foreach (int value in intersect)  
+        {  
+            Console.WriteLine(value);  
+        }  
+    }  
+} 
+output:
+1
+2
+7
+-----------------------------------------------------------------------------
+4. To Find Missing Number In An Array
+// C# program to find missing Number
+using System;
+
+class GFG {
+	// Function to ind missing number
+	static int getMissingNo(int[] a, int n)
+	{
+		int total = (n + 1) * (n + 2) / 2;
+
+		for (int i = 0; i < n; i++)
+			total -= a[i];
+
+		return total;
+	}
+
+	/* program to test above function */
+	public static void Main()
+	{
+		int[] a = { 1, 2, 4, 5, 6 };
+		int miss = getMissingNo(a, 5);
+		Console.Write(miss);
+	}
+}
+output:
+3
+-------------------------------------------------------------------
+5. To Check The Equality Of Two Arrays
+using System;
+using System.Linq;
+ 
+public class Example
+{
+    public static bool checkEquality<T>(T[] first, T[] second) {
+        return Enumerable.SequenceEqual(first, second);
+    }
+ 
+    public static void Main()
+    {
+        int[] first = { 1, 2, 3, 4, 5 };
+        int[] second = { 1, 2, 3, 4, 5 };
+ 
+        if (checkEquality(first, second)) {
+            Console.WriteLine("Both arrays are equal");
+        }
+        else {
+            Console.WriteLine("Both arrays are not equal");
+        }
+    }
+}
+output:
+both arrays are equal
+------------------------------------------------------------------------------
+6. To Separate Zeros From Non-Zeros In An Array
+  /* C# program to push zeroes to back of array */
+using System;
+
+class PushZero
+{
+	// Function which pushes all zeros
+	// to end of an array.
+	static void pushZerosToEnd(int []arr, int n)
+	{
+		// Count of non-zero elements
+		int count = 0;
+		
+		// Traverse the array. If element encountered is
+		// non-zero, then replace the element
+		// at index â..countâ.. with this element
+		for (int i = 0; i < n; i++)
+		if (arr[i] != 0)
+		
+		// here count is incremented
+		arr[count++] = arr[i];
+		
+		// Now all non-zero elements have been shifted to
+		// front and â..countâ.. is set as index of first 0.
+		// Make all elements 0 from count to end.
+		while (count < n)
+		arr[count++] = 0;
+	}
+	
+	// Driver function
+	public static void Main ()
+	{
+		int []arr = {1, 9, 8, 4, 0, 0, 2, 7, 0, 6, 0, 9};
+		int n = arr.Length;
+		pushZerosToEnd(arr, n);
+		Console.WriteLine("Array after pushing all zeros to the back: ");
+		for (int i = 0; i < n; i++)
+		Console.Write(arr[i] +" ");
+	}
+}
+Output
+Array after pushing all zeros to end of array :
+1 9 8 4 2 7 6 9 0 0 0 0 
+---------------------------------------------------------------------------
+1. Can you pass the negative number as an array size?
+     No, you cannot use a negative integer as size, the size of an array represents the number of elements in it, –ve number of elements in an array makes no sense
+2. Can you change the size of the array once you define it? OR Can you insert or delete the elements after creating an array?
+     You cannot remove items from arrays in C#, as you can see from this example program. What you can do is create a new array, copy only some of the elements of the original one and assign it back to the original variable.
+
+--------------------------------------------------------------------------------------------------------
+3. What is an anonymous array? Give example?
+ anonymous array:
+   In addition to the above specified ways you can create an array without specifying any name such arrays are known as anonymous arrays. Since it doesn’t have name to refer you can use it only once in your program. Generally, anonymous arrays are passed as arguments to methods.
+You can create an anonymous array by initializing it at the time of creation.
+new int[] { 1254, 5452, 5743, 9984}; //int array
+new String[] {"Java", "JavaFX", "Hadoop"}; //String array
+example;
+public class AnonymousArray {
+   public static void arrayToUpperCase(String [] array) {
+      for(int i=0; i< array.length; i++) {
+         char[] ch = array[i].toCharArray();
+         for(int j=0; j<ch.length; j++){
+            ch[j] = Character.toUpperCase(ch[j]);
+         }
+         System.out.println(new String(ch));
+      }
+   }
+   public static void main(String args[]) {
+      arrayToUpperCase(new String[] {"Krishna", "Vishnu", "Dhana", "Rupa", "Raja", "Kavya"});
+   }
+}
+output:
+KRISHNA
+VISHNU
+DHANA
+RUPA
+RAJA
+KAVYA
+----------------------------------------------------------------------------------
+4. There are two array objects of int type. one is containing 100 elements and another one is containing 10 elements. Can you assign array of 100 elements to an array of 10 elements?
+      Yes, you can assign array of 100 elements to an array of 10 elements provided they should be of same type. While assigning, compiler checks only type of the array not the size.
+ public class MainClass
+{
+    public static void main(String[] args)
+    {
+        int[] a = new int[10];
+        int[] b = new int[100];
+        a = b;      //Compiler checks only type, not the size
+    }
+}
+------------------------------------------------------------------------------
+5. What are the different ways of copying an array into another array?
+  Use the array. copy method in C# to copy a section of one array to another.
+The array.copy() method allow you to add the source and destination array. With that, include the size of the section of the first array that includes in the second array.
+prgrm:
+using System;
+namespace ArrayApplication {
+   class MyArray {
+      static void Main(string[] args) {
+         int [] n = new int[10]; /* n is an array of 10 integers */
+         int [] m = new int[5]; /* m is an array of 5 integers */
+         for ( int i = 0; i < 10; i++ ) {
+            n[i] = i + 100;
+         }
+         Console.WriteLine("Original Array...");
+         foreach (int j in n ) {
+            int i = j-100;
+            Console.WriteLine("Element[{0}] = {1}", i, j);
+         }
+         Array.Copy(n, 0, m, 0, 5);
+         Console.WriteLine("New Array...");
+         foreach (int res in m) {
+            Console.WriteLine(res);
+         }
+         Console.ReadKey();
+      }
+   }
+}
+Output
+Original Array...
+Element[0] = 100
+Element[1] = 101
+Element[2] = 102
+Element[3] = 103
+Element[4] = 104
+Element[5] = 105
+Element[6] = 106
+Element[7] = 107
+Element[8] = 108
+Element[9] = 109
+New Array...
+100
+101
+102
+103
+104
+--------------------------------------------------------
+6. What are jagged arrays in C Sharp? Give example?
+ jagged arrays:
+  Jagged array is a array of arrays such that member arrays can be of different sizes. In other words, the length of each array index can differ. The elements of Jagged Array are reference types and initialized to null by default. Jagged Array can also be mixed with multidimensional arrays. Here, the number of rows will be fixed at the declaration time, but you can vary the number of columns.
+Declaration:
+In Jagged arrays, user has to provide the number of rows only. If the user is also going to provide the number of columns, then this array will be no more Jagged Array.
+example:
+// C# program to illustrate the declaration
+// and Initialization of Jagged Arrays
+using System;
+
+class GFG {
+	
+	// Main Method
+	public static void Main()
+	{
+		
+		// Declare the Jagged Array of four elements:
+		int[][] jagged_arr = new int[4][];
+
+		// Initialize the elements
+		jagged_arr[0] = new int[] {1, 2, 3, 4};
+		jagged_arr[1] = new int[] {11, 34, 67};
+		jagged_arr[2] = new int[] {89, 23};
+		jagged_arr[3] = new int[] {0, 45, 78, 53, 99};
+
+		// Display the array elements:
+		for (int n = 0; n < jagged_arr.Length; n++) {
+
+			// Print the row number
+			System.Console.Write("Row({0}): ", n);
+
+			for (int k = 0; k < jagged_arr[n].Length; k++) {
+
+				// Print the elements in the row
+				System.Console.Write("{0} ", jagged_arr[n][k]);
+			}
+			System.Console.WriteLine();
+		}
+	}
+}
+OUTPUT:
+Row(0): 1 2 3 4 
+Row(1): 11 34 67 
+Row(2): 89 23 
+Row(3): 0 45 78 53 99 
+------------------------------------------------------------------------------------
+7. How do you check the equality of two arrays in C Sharp? OR How do you compare the two arrays in C Sharp?
+using System;
+using System.Linq;
+
+public class Example
+{
+	public static bool checkEquality<T>(T[] first, T[] second) {
+                        return Enumerable.SequenceEqual(first, second);
+	}
+
+	public static void Main()
+	{
+		int[] first = { 1, 2, 3, 4, 5 };
+		int[] second = { 1, 2, 3, 4, 5 };
+
+		if (checkEquality(first, second))
+                                      {
+			Console.WriteLine("Both arrays are equal");
+		}
+		else 
+                                        {
+			Console.WriteLine("Both arrays are not equal");
+		}
+	}
+}
+output:
+both arrays are equal
+------------------------------------------------------------------------------
+8. How do you find the intersection of two arrays in C Sharp?
+using System;
+using System.Linq;
+
+class Program {
+   static void Main() {
+      int[] arr1 = { 44, 76, 98, 34 };
+      int[] arr2 = { 24, 98, 44, 55, 47, 86 };
+      var intersect = arr1.Intersect(arr2);
+      foreach (int res in intersect) {
+         Console.WriteLine(res);
+      }
+   }
+}
+Output
+44
+98
+-------------------------------------------------------------------------------------
+9. How do you find all pairs of elements in an array whose sum is equal to a given number?
+using System;
+
+using System.Collections.Generic;
+
+using System.Linq;
+
+using System.Text.RegularExpressions;
+
+
+namespace HelloWorld
+
+{
+	
+public class Program
+	
+{
+		
+public static void Main(string[] args)
+		
+{
+			
+			
+   int[] arr = new int[] { 1,2,3,4,5,6 };
+    
+  int target = 6;
+     
+ List<int> diff = new List<int>( );
+      
+      
+for(int i = 0; i < arr.Length; i++) 
+{
+        
+       
+ int value = target - arr[i];
+        
+       
+ if(!diff.Contains(value))
+{
+       
+   diff.Add(arr[i]);
+        
+   
+     } 
+else
+{
+          
+Console.WriteLine(arr[i] + " " + value)  ;
+      
+  }
+        
+   
+   }
+      
+
+
+      
+Console.WriteLine("Hello, World!");
+		
+}
+	
+}
+
+}
+output:
+4 2
+5 1
+Hello, World
+------------------------------------------------------------------------------------
+10. How do you separate zeros from non-zeros in an integer array?
+To separate zeros from non-zeros in an integer array, and push them to the end, you need to rearrange it array by assigning all the nonzero elements to its positions, sequentially, starting from zero. Then, from last position of the array to its end populate it with zeros.
+program:
+ /* C# program to push zeroes to back of array */
+using System;
+
+class PushZero
+{
+	// Function which pushes all zeros
+	// to end of an array.
+	static void pushZerosToEnd(int []arr, int n)
+	{
+		// Count of non-zero elements
+		int count = 0;
+		
+		// Traverse the array. If element encountered is
+		// non-zero, then replace the element
+		// at index â..countâ.. with this element
+		for (int i = 0; i < n; i++)
+		if (arr[i] != 0)
+		
+		// here count is incremented
+		arr[count++] = arr[i];
+		
+		// Now all non-zero elements have been shifted to
+		// front and â..countâ.. is set as index of first 0.
+		// Make all elements 0 from count to end.
+		while (count < n)
+		arr[count++] = 0;
+	}
+	
+	// Driver function
+	public static void Main ()
+	{
+		int []arr = {1, 9, 8, 4, 0, 0, 2, 7, 0, 6, 0, 9};
+		int n = arr.Length;
+		pushZerosToEnd(arr, n);
+		Console.WriteLine("Array after pushing all zeros to the back: ");
+		for (int i = 0; i < n; i++)
+		Console.Write(arr[i] +" ");
+	}
+}
+Output
+Array after pushing all zeros to end of array :
+1 9 8 4 2 7 6 9 0 0 0 0 
+-----------------------------------------------------------------

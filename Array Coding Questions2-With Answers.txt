@@ -1,0 +1,296 @@
+1. Find duplicates in array and if there is more than one form of duplicates product the two sets.
+prgrms:
+// C# implementation of the
+// above approach
+using System;
+using System.Collections.Generic;
+
+class GFG{
+	
+// Function to find the Duplicates,
+// if duplicate occurs 2 times or
+// more than 2 times in array so,
+// it will print duplicate value
+// only once at output
+static void findDuplicates(int[] arr, int len)
+{
+	
+	// Initialize ifPresent as false
+	bool ifPresent = false;
+
+	// ArrayList to store the output
+	List<int> al = new List<int>();
+
+	for(int i = 0; i < len - 1; i++)
+	{
+		for(int j = i + 1; j < len; j++)
+		{
+			if (arr[i] == arr[j])
+			{
+				
+				// Checking if element is
+				// present in the ArrayList
+				// or not if present then break
+				if (al.Contains(arr[i]))
+				{
+					break;
+				}
+
+				// If element is not present in the
+				// ArrayList then add it to ArrayList
+				// and make ifPresent at true
+				else
+				{
+					al.Add(arr[i]);
+					ifPresent = true;
+				}
+			}
+		}
+	}
+
+	// If duplicates is present
+	// then print ArrayList
+	if (ifPresent == true)
+	{
+		Console.Write("[" + al[0] + ", ");
+		for(int i = 1; i < al.Count - 1; i++)
+		{
+			Console.Write(al[i] + ", ");
+		}
+		Console.Write(al[al.Count - 1] + "]");
+	}
+	else
+	{
+		Console.Write("No duplicates present in arrays");
+	}
+}
+
+// Driver code
+static void Main()
+{
+	int[] arr = { 12, 11, 40, 12,5, 6, 5, 12, 11 };
+	int n = arr.Length;
+
+	findDuplicates(arr, n);
+}
+}
+
+ -----------------------------------------------------------------------------
+
+2. Consider you may have 3 int array where two array's values gonna be given from user and third array will contains all elements from both in first half selection(ascending) and second half insertion sort(descending)
+Sample Input:
+len of arr1:
+4
+Arr1 elements:
+89 12 67 34
+len of arr2:
+4
+Arr2 elements:
+45 7 14 8
+Sample output:
+Array 3 elements are:
+12 34 67 89 45 14 8 7
+
+prgrm;
+// C# program to print first half in
+// ascending order and the second half
+// in descending order
+using System;
+
+class GFG {
+	
+	// function to print half of the array in
+	// ascending order and the other half in
+	// descending order
+	static void printOrder(int[] arr, int n)
+	{
+		
+		// sorting the array
+		Array.Sort(arr);
+	
+		// printing first half in ascending
+		// order
+		for (int i = 0; i < n / 2; i++)
+			Console.Write(arr[i] + " ");
+	
+		// printing second half in descending
+		// order
+		for (int j = n - 1; j >= n / 2; j--)
+			Console.Write(arr[j] + " ");
+	}
+	
+	// Driver code
+	public static void Main()
+	{
+		int[] arr = { 5, 4, 6, 2, 1, 3, 8, 9, 7 };
+		int n = arr.Length;
+		
+		printOrder(arr, n);
+	}
+}
+-----------------------------------------------------------------------------
+3. Do the swap operation in int array with length N if you find two least elements which those should be unique
+Sample Input:
+Length of array:
+6
+Array elements:
+4 2 6 7 2 5
+Sample Output:
+5 2 6 7 2 4
+Note:
+Least elements is 2 and 4 but 2 is duplicated so perform swap between 5 and 4
+prgrms:
+// C# program to find
+// minimum number of swaps
+// required to sort an array
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+public class GfG
+{
+
+// Function returns the
+// minimum number of swaps
+// required to sort the array
+public int minSwaps(int[] arr)
+{
+	int n = arr.Length;
+
+	// Create two arrays and
+	// use as pairs where first
+	// array is element and second array
+	// is position of first element
+	List <KeyValuePair <int, int> > arrpos =
+	new List <KeyValuePair <int, int> > ( );
+	for (int i = 0; i < n; i++)
+	arrpos.Add(new KeyValuePair <int,int> (arr[i], i));
+
+	// Sort the array by array element values to
+	// get right position of every element as the
+	// elements of second array.
+	arrpos.Sort((a,b)=> a.Key-b.Key);
+
+	// To keep track of visited elements. Initialize
+	// all elements as not visited or false.
+	Boolean[] vis = new Boolean[n];
+
+
+	// Initialize result
+	int ans = 0;
+
+	// Traverse array elements
+	for (int i = 0; i < n; i++)
+	{
+	
+	// already swapped and corrected or
+	// already present at correct pos
+	if (vis[i] || arrpos[i].Value == i)
+		continue;
+
+	// find out the number of node in
+	// this cycle and add in ans
+	int cycle_size = 0;
+	int j = i;
+	while (!vis[j])
+	{
+		vis[j] = true;
+
+		// move to next node
+		j = arrpos[j].Value;
+		cycle_size++;
+	}
+
+	// Update answer by adding current cycle.
+	if(cycle_size > 0)
+	{
+		ans += (cycle_size - 1);
+	}
+	}
+
+	// Return result
+	return ans;
+}
+}
+
+// Driver class
+public class MinSwaps
+{
+// Driver program to test the above function
+public static void Main(String[] args)
+{
+	int []a = {1, 5, 4, 3, 2};
+	GfG g = new GfG();
+	Console.WriteLine(g.minSwaps(a));
+}
+}
+-----------------------------------------------------------------------------
+4. Consider array of int with length of N, find the duplicates and check whether its divisable by NUM that user gonna give
+Sample Input:
+length of array: 
+6
+Array elements:
+20 45 60 45 90 100
+Enter the NUM:
+5
+Sample Output:
+45
+prgrms:
+// C# code to find elements whose
+// frequency yis more than n/k
+using System;
+using System.Collections.Generic;
+
+class GFG{
+	
+public static void morethanNdK(int []a, int n,int k)
+{
+	int x = n / k;
+	
+	// Hash map initialization
+	Dictionary<int,
+			int> y = new Dictionary<int,int>( );
+										
+	// Count the frequency of each element.
+	for(int i = 0; i < n; i++)
+	{
+		
+		// Is element doesn't exist in hash table
+		if (!y.ContainsKey(a[i]))
+			y.Add(a[i], 1);
+			
+		// If element does exist in the hash table
+		else
+		{
+			int count = y[a[i]];
+			y[a[i]] = count + 1;
+		}
+	}
+
+	// Iterate over each element in the hash table
+	// and check their frequency, if it is more than
+	// n/k, print it.
+	foreach(KeyValuePair<int, int> m in y)
+	{
+		int temp = (int)m.Value;
+		if (temp > x)
+			Console.WriteLine(m.Key);
+	}
+}
+
+// Driver Code
+public static void Main(String[] args)
+{
+	int []a = new int[]{ 1, 1, 2, 2, 3, 5, 4,2, 2, 3, 1, 1, 1 };
+	int n = 12;
+	int k = 4;
+	
+	morethanNdK(a, n, k);
+}
+}
+
+------------------------------------------
+
+
+		
+	
