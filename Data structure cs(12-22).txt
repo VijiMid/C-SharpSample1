@@ -1,0 +1,735 @@
+12-Write a C Sharp program to find the position of a target value within a sorted array using Jump search.
+
+// C# program to implement Jump Search.
+using System;
+public class JumpSearch
+{
+	public static int jumpSearch(int[] arr, int x)
+	{
+		int n = arr.Length;
+
+		// Finding block size to be jumped
+		int step = (int)Math.Sqrt(n);
+
+		// Finding the block where element is
+		// present (if it is present)
+		int prev = 0;
+		while (arr[Math.Min(step, n)-1] < x)
+		{
+			prev = step;
+			step += (int)Math.Sqrt(n);
+			if (prev >= n)
+				return -1;
+		}
+
+		// Doing a linear search for x in block
+		// beginning with prev.
+		while (arr[prev] < x)
+		{
+			prev++;
+
+			// If we reached next block or end of
+			// array, element is not present.
+			if (prev == Math.Min(step, n))
+				return -1;
+		}
+
+		// If element is found
+		if (arr[prev] == x)
+			return prev;
+
+		return -1;
+	}
+
+	// Driver program to test function
+	public static void Main()
+	{
+		int[] arr = { 0, 1, 1, 2, 3, 5, 8, 13, 21,
+					34, 55, 89, 144, 233, 377, 610};
+		int x = 55;
+
+		// Find the index of 'x' using Jump Search
+		int index = jumpSearch(arr, x);
+
+		// Print the index where 'x' is located
+		Console.Write("Number " + x +
+							" is at index " + index);
+	}
+}
+
+
+
+13-Write a C Sharp program to find the position of a target value within a array using Ternary search.
+
+// CSharp program to illustrate
+// recursive approach to ternary search
+using System;
+
+class GFG {
+
+	// Function to perform Ternary Search
+	static int ternarySearch(int l, int r, int key, int[] ar)
+	{
+		if (r >= l) {
+
+			// Find the mid1 and mid2
+			int mid1 = l + (r - l) / 3;
+			int mid2 = r - (r - l) / 3;
+
+			// Check if key is present at any mid
+			if (ar[mid1] == key) {
+				return mid1;
+			}
+			if (ar[mid2] == key) {
+				return mid2;
+			}
+
+			// Since key is not present at mid,
+			// check in which region it is present
+			// then repeat the Search operation
+			// in that region
+
+			if (key < ar[mid1]) {
+
+				// The key lies in between l and mid1
+				return ternarySearch(l, mid1 - 1, key, ar);
+			}
+			else if (key > ar[mid2]) {
+
+				// The key lies in between mid2 and r
+				return ternarySearch(mid2 + 1, r, key, ar);
+			}
+			else {
+
+				// The key lies in between mid1 and mid2
+				return ternarySearch(mid1 + 1, mid2 - 1, key, ar);
+			}
+		}
+
+		// Key not found
+		return -1;
+	}
+
+	// Driver code
+	public static void Main()
+	{
+		int l, r, p, key;
+
+		// Get the array
+		// Sort the array if not sorted
+		int[] ar = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+
+		// Starting index
+		l = 0;
+
+		// length of array
+		r = 9;
+
+		// Checking for 5
+
+		// Key to be searched in the array
+		key = 5;
+
+		// Search the key using ternarySearch
+		p = ternarySearch(l, r, key, ar);
+
+		// Print the result
+		Console.WriteLine("Index of " + key + " is " + p);
+
+		// Checking for 50
+
+		// Key to be searched in the array
+		key = 50;
+
+		// Search the key using ternarySearch
+		p = ternarySearch(l, r, key, ar);
+
+		// Print the result
+		Console.WriteLine("Index of " + key + " is " + p);
+	}
+}
+
+
+14-Write a C Sharp program to sort a list of elements using the selection sort algorithm.
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace Selection_Sort
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Selection_Sort selection = new Selection_Sort(10);
+            selection.Sort();
+        }
+    }
+
+    class Selection_Sort
+    {
+        private int[] data;
+        private static Random generator = new Random();
+        //Create an array of 10 random numbers
+           public Selection_Sort(int size)
+        {
+            data = new int[size];
+            for (int i = 0; i < size; i++)
+            {
+                data[i] = generator.Next(20, 90);
+            }
+        }
+
+        public void Sort()
+        {
+            Console.Write("\nSorted Array Elements :(Step by Step)\n\n");
+			display_array_elements();
+			int smallest; 
+            for (int i = 0; i < data.Length - 1; i++)
+            {
+                smallest = i;
+
+                for (int index = i + 1; index < data.Length; index++)
+                {
+                    if (data[index] < data[smallest])
+                    {
+                        smallest = index;
+                    }
+                }
+                Swap(i, smallest);
+                display_array_elements();
+		   }
+            	
+        }
+
+        public void Swap(int first, int second)
+        {
+            int temporary = data[first];    
+            data[first] = data[second];  
+            data[second] = temporary;  
+        }  
+
+        public void display_array_elements()
+        {        
+            foreach (var element in data)
+            {
+                Console.Write(element + " ");
+            }
+            Console.Write("\n\n");
+        }
+    }
+}
+
+
+
+15- Write a C Sharp program to sort a list of elements using the bubble sort algorithm.
+
+
+using System; 
+public class Bubble_Sort  
+{  
+   public static void Main(string[] args)
+         { 
+            int[] a = { 3, 0, 2, 5, -1, 4, 1 }; 
+			int t; 
+			Console.WriteLine("Original array :");
+            foreach (int aa in a)                       
+            Console.Write(aa + " ");                     
+            for (int p = 0; p <= a.Length - 2; p++)
+            {
+                for (int i = 0; i <= a.Length - 2; i++)
+                {
+                    if (a[i] > a[i + 1])
+                    {
+                        t = a[i + 1];
+                        a[i + 1] = a[i];
+                        a[i] = t;
+                    }
+                } 
+            }
+            Console.WriteLine("\n"+"Sorted array :");
+            foreach (int aa in a)                       
+            Console.Write(aa + " ");
+			Console.Write("\n"); 
+            
+        }
+}
+
+16-Write a C Sharp program to sort a list of elements using the insertion sort algorithm.
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace CommonInsertion_Sort
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int[] numbers = new int[10] {2, 5, -4, 11, 0, 18, 22, 67, 51, 6};
+            Console.WriteLine("\nOriginal Array Elements :");
+			PrintIntegerArray(numbers);
+            Console.WriteLine("\nSorted Array Elements :");
+            PrintIntegerArray(InsertionSort(numbers));
+			Console.WriteLine("\n");
+            }
+
+        static int[] InsertionSort(int[] inputArray)
+        {
+            for (int i = 0; i < inputArray.Length - 1; i++)
+            {
+                for (int j = i + 1; j > 0; j--)
+                {
+                    if (inputArray[j - 1] > inputArray[j])
+                    {
+                        int temp = inputArray[j - 1];
+                        inputArray[j - 1] = inputArray[j];
+                        inputArray[j] = temp;
+                    }
+                  }
+            }
+            return inputArray;         
+        }
+        public static void PrintIntegerArray(int[] array)
+        {
+            foreach (int i in array)
+            {
+                Console.Write(i.ToString() + "  ");
+            }
+         }
+
+       
+        public static int[] InsertionSortByShift(int[] inputArray)
+        {
+            for (int i = 0; i < inputArray.Length - 1; i++)
+            {
+                int j;
+                var insertionValue = inputArray[i];
+                for (j = i; j > 0; j--)
+                {
+                    if (inputArray[j - 1] > insertionValue)
+                    {
+                        inputArray[j] = inputArray[j - 1];
+                    }
+                }
+                inputArray[j] = insertionValue;
+            }
+            return inputArray;
+        }
+
+     }
+}
+
+
+17-Write a C Sharp program to sort a list of elements using the merge sort algorithm.
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace Merge_sort
+{    
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            List<int> unsorted = new List<int>();
+            List<int> sorted;
+
+            Random random = new Random();
+
+            Console.WriteLine("Original array elements:" );
+            for(int i = 0; i< 10;i++){
+                unsorted.Add(random.Next(0,100));
+                Console.Write(unsorted[i]+" ");
+            }
+            Console.WriteLine();
+
+            sorted = MergeSort(unsorted);
+
+            Console.WriteLine("Sorted array elements: ");
+            foreach (int x in sorted)
+            {
+                Console.Write(x+" ");
+            }
+			Console.Write("\n");
+        }
+		
+
+        private static List<int> MergeSort(List<int> unsorted)
+        {
+            if (unsorted.Count <= 1)
+                return unsorted;
+
+            List<int> left = new List<int>();
+            List<int> right = new List<int>();
+
+            int middle = unsorted.Count / 2;
+            for (int i = 0; i < middle;i++)  //Dividing the unsorted list
+            {
+                left.Add(unsorted[i]);
+            }
+            for (int i = middle; i < unsorted.Count; i++)
+            {
+                right.Add(unsorted[i]);
+            }
+
+            left = MergeSort(left);
+            right = MergeSort(right);
+            return Merge(left, right);
+        }
+
+        private static List<int> Merge(List<int> left, List<int> right)
+        {
+            List<int> result = new List<int>();
+
+            while(left.Count > 0 || right.Count>0)
+            {
+                if (left.Count > 0 && right.Count > 0)
+                {
+                    if (left.First() <= right.First())  //Comparing First two elements to see which is smaller
+                    {
+                        result.Add(left.First());
+                        left.Remove(left.First());      //Rest of the list minus the first element
+                    }
+                    else
+                    {
+                        result.Add(right.First());
+                        right.Remove(right.First());
+                    }
+                }
+                else if(left.Count>0)
+                {
+                    result.Add(left.First());
+                    left.Remove(left.First());
+                }
+                else if (right.Count > 0)
+                {
+                    result.Add(right.First());
+
+                    right.Remove(right.First());    
+                }    
+            }
+            return result;
+        }
+    }
+}
+
+
+18-Write a C Sharp program to sort a list of elements using the quick sort algorithm.
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace Quick_Sort
+{
+    class Program
+    {
+        private static void Quick_Sort(int[] arr, int left, int right) 
+        {
+            if (left < right)
+            {
+                int pivot = Partition(arr, left, right);
+
+                if (pivot > 1) {
+                    Quick_Sort(arr, left, pivot - 1);
+                }
+                if (pivot + 1 < right) {
+                    Quick_Sort(arr, pivot + 1, right);
+                }
+            }
+        
+        }
+
+        private static int Partition(int[] arr, int left, int right)
+        {
+            int pivot = arr[left];
+            while (true) 
+            {
+
+                while (arr[left] < pivot) 
+                {
+                    left++;
+                }
+
+                while (arr[right] > pivot)
+                {
+                    right--;
+                }
+
+                if (left < right)
+                {
+                    if (arr[left] == arr[right]) return right;
+
+                    int temp = arr[left];
+                    arr[left] = arr[right];
+                    arr[right] = temp;
+
+
+                }
+                else 
+                {
+                    return right;
+                }
+            }
+        }
+        static void Main(string[] args)
+        {
+            int[] arr = new int[] { 2, 5, -4, 11, 0, 18, 22, 67, 51, 6 };
+
+            Console.WriteLine("Original array : ");
+            foreach (var item in arr)
+            {
+                Console.Write(" " + item);    
+            }
+            Console.WriteLine();
+
+            Quick_Sort(arr, 0, arr.Length-1);
+            
+            Console.WriteLine();
+            Console.WriteLine("Sorted array : ");
+           
+		   foreach (var item in arr)
+            {
+                Console.Write(" " + item);
+            }
+            Console.WriteLine();
+                    }
+    }
+}
+
+
+
+19-Write a C Sharp Program for counting sort.
+
+
+
+using System;
+using System.Linq;
+public class Counting_sort  
+{  
+ public static void Main()  
+    {  
+int[] array = new int[10]
+{
+    2, 5, -4, 11, 0, 8, 22, 67, 51, 6
+};
+ 
+    Console.WriteLine("\n"+"Original array :");
+           foreach (int aa in array)                       
+           Console.Write(aa + " "); 
+
+    int[] sortedArray = new int[array.Length];
+ 
+    // find smallest and largest value
+    int minVal = array[0];
+    int maxVal = array[0];
+    for (int i = 1; i < array.Length; i++)
+    {
+        if (array[i] < minVal) minVal = array[i];
+        else if (array[i] > maxVal) maxVal = array[i];
+    }
+ 
+    // init array of frequencies
+    int[] counts = new int[maxVal - minVal + 1];
+ 
+    // init the frequencies
+    for (int i = 0; i < array.Length; i++)
+    {
+        counts[array[i] - minVal]++;
+    }
+ 
+    // recalculate
+    counts[0]--;
+    for (int i = 1; i < counts.Length; i++)
+    {
+        counts[i] = counts[i] + counts[i - 1];
+    }
+ 
+    // Sort the array
+    for (int i = array.Length - 1; i >= 0; i--)
+    {
+        sortedArray[counts[array[i] - minVal]--] = array[i];
+    }
+ 
+  Console.WriteLine("\n"+"Sorted array :");
+           foreach (int aa in sortedArray)                       
+           Console.Write(aa + " "); 
+  Console.Write("\n");            
+                   
+}
+}
+
+
+20-Write a C Sharp program that sort numbers using QuickSort method.
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace Quick_Sort
+{
+    class Program
+    {
+        private static void Quick_Sort(int[] arr, int left, int right) 
+        {
+            if (left < right)
+            {
+                int pivot = Partition(arr, left, right);
+
+                if (pivot > 1) {
+                    Quick_Sort(arr, left, pivot - 1);
+                }
+                if (pivot + 1 < right) {
+                    Quick_Sort(arr, pivot + 1, right);
+                }
+            }
+        
+        }
+
+        private static int Partition(int[] arr, int left, int right)
+        {
+            int pivot = arr[left];
+            while (true) 
+            {
+
+                while (arr[left] < pivot) 
+                {
+                    left++;
+                }
+
+                while (arr[right] > pivot)
+                {
+                    right--;
+                }
+
+                if (left < right)
+                {
+                    if (arr[left] == arr[right]) return right;
+
+                    int temp = arr[left];
+                    arr[left] = arr[right];
+                    arr[right] = temp;
+
+
+                }
+                else 
+                {
+                    return right;
+                }
+            }
+        }
+        static void Main(string[] args)
+        {
+            int[] arr = new int[] { 2, 5, -4, 11, 0, 18, 22, 67, 51, 6 };
+
+            Console.WriteLine("Original array : ");
+            foreach (var item in arr)
+            {
+                Console.Write(" " + item);    
+            }
+            Console.WriteLine();
+
+            Quick_Sort(arr, 0, arr.Length-1);
+            
+            Console.WriteLine();
+            Console.WriteLine("Sorted array : ");
+           
+		   foreach (var item in arr)
+            {
+                Console.Write(" " + item);
+            }
+            Console.WriteLine();
+                    }
+    }
+}
+
+
+
+21-Write a C Sharp program that sort numbers using Bead Sort method.
+
+
+public static void BeadSort(ref int[] data)
+{
+	int i, j, max, sum;
+	byte[] beads;
+
+	for (i = 1, max = data[0]; i < data.Length; ++i)
+		if (data[i] > max)
+			max = data[i];
+
+	beads = new byte[max * data.Length];
+
+	for (i = 0; i < data.Length; ++i)
+		for (j = 0; j < data[i]; ++j)
+			beads[i * max + j] = 1;
+
+	for (j = 0; j < max; ++j)
+	{
+		for (sum = i = 0; i < data.Length; ++i)
+		{
+			sum += beads[i * max + j];
+			beads[i * max + j] = 0;
+		}
+
+		for (i = data.Length - sum; i < data.Length; ++i)
+			beads[i * max + j] = 1;
+	}
+
+	for (i = 0; i < data.Length; ++i)
+	{
+		for (j = 0; j < max && Convert.ToBoolean(beads[i * max + j]); ++j) ;
+		data[i] = j;
+	}
+}
+
+
+
+22-Write a C Sharp program to sort a list of elements using the insertionsort algorithm.
+
+
+
+using System;
+namespace InsertionSortDemo {
+   class Example {
+      static void Main(string[] args) {
+         int[] arr = new int[10] { 23, 9, 85, 12, 99, 34, 60, 15, 100, 1 };
+         int n = 10, i, j, val, flag;
+         Console.WriteLine("Insertion Sort");
+         Console.Write("Initial array is: ");
+         for (i = 0; i < n; i++) {
+            Console.Write(arr[i] + " ");
+         }
+         for (i = 1; i < n; i++) {
+            val = arr[i];
+            flag = 0;
+            for (j = i - 1; j >= 0 && flag != 1; ) {
+               if (val < arr[j]) {
+                  arr[j + 1] = arr[j];
+                  j--;
+                  arr[j + 1] = val;
+               }
+               else flag = 1;
+            }
+         }
+         Console.Write("\nSorted Array is: ");
+         for (i = 0; i < n; i++) {
+            Console.Write(arr[i] + " ");
+         }
+      }
+   }
+}
+
+--------------------------------------------------------------------------------------------------------------------------
